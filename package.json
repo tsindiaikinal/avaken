@@ -1,0 +1,38 @@
+{
+  "name": "avaken",
+  "version": "1.0.0",
+  "description": "Test project Avaken",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "@babel/core": "^7.10.2",
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-rigger": "^0.5.8",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "gulp-uglifyjs": "^0.6.2",
+    "imagemin-jpeg-recompress": "^6.0.0",
+    "imagemin-pngquant": "^7.0.0",
+    "jshint": "^2.11.1",
+    "node-sass": "^4.14.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsindiaikinal/avaken.git"
+  },
+  "author": "Tsyndiaikin Aleksei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tsindiaikinal/avaken/issues"
+  },
+  "homepage": "https://github.com/tsindiaikinal/avaken#readme"
+}
