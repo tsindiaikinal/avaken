@@ -1,90 +1,144 @@
-// 'use strict';
-// const gulp = require("gulp");
-const { watch, dest, src } = require("gulp");
-const { series } = require("gulp"); 
-const sass = require("gulp-sass");
-const sourcemaps = require("gulp-sourcemaps");
+'use strict';
+const { watch, dest, src, series, parallel } = require("gulp");
+const sass = require("gulp-sass")(require("sass"));
+// const sourcemaps = require("gulp-sourcemaps");
 const babel = require("gulp-babel");
+const minify = require("gulp-babel-minify");
 const concat = require("gulp-concat");
 const csso = require("gulp-csso");
-const imagemin    = require('gulp-imagemin');
+const imagemin = require("gulp-imagemin");
 const imageminPngquant = require("imagemin-pngquant");
 const imgCompress = require("imagemin-jpeg-recompress");
-const uglify = require("gulp-uglify");
+// const uglify = require("gulp-uglify");
 const browserSync = require("browser-sync").create();
 // **************************************************
+
+let prodFolder = "dist";
+let devFolder = "src";
+
+let path = {
+  build: {
+    html: prodFolder + "/",
+    css: prodFolder + "/css/",
+    js: prodFolder + "/js/",
+    img: prodFolder + "/img/",
+    fonts: prodFolder + "/fonts/",
+  },
+  src: {
+    html: devFolder + "/*.html",
+    scss: devFolder + "/sass/*.scss",
+    css: devFolder + "/css/",
+    js: devFolder + "/js/script.js",
+    img: devFolder + "/img/**/*.{jpg,jpeg,png,svg}",
+    fonts: devFolder + "/fonts/*.ttf",
+  },
+  observe: {
+    html: devFolder + "/**/*.html",
+    scss: devFolder + "/sass/**/*.scss",
+    css: devFolder + "/css/**/*.css",
+    js: devFolder + "/js/**/*.js",
+    img: devFolder + "/img/**/*.{jpg,jpeg,png,svg}",
+  },
+  clean: "./" + prodFolder + "/",
+};
+
 const watcher = watch([
+  path.observe.html,
+  path.observe.scss,
+  path.observe.css,
+  path.observe.js
+]);
+
+/* const watcher = watch([
   "src/*.html",
   "src/js/*.js",
   "src/sass/*.scss",
-  "src/css/*.css"
-]);
-watcher.on("change", function(path, stats) {
+  "src/css/*.css",
+]); */
+watcher.on("change", function (path, stats) {
   browserSync.reload();
 });
 
-watch(["src/sass/*.scss"], function(cb) {
-  // body omitted
-   sassExt();
-    cb();
+watch(path.src.scss, function (cb) {
+  sassExt();
+  cb();
+  browserSync.reload();
 });
 
-watch("src/**/*.js", function (cb) {
-  babelTranspiller();
+watch(path.src.js, function (cb) {
   cb();
 });
 
-const serv = () => {
+function serv() {
   browserSync.init({
     server: {
-      baseDir: "./src"
-    }
+      baseDir: "./src",
+    },
   });
 };
 
-// const jscript =() => {
-//   return src("src/**/*.js")
-//     .pipe(sourcemaps.init())
-//     .pipe(sourcemaps.write())
-//     .pipe(gulp.dest("dist/js"));
-//   };
-  
-  const babelTranspiller = () => {
-     return src(["src/**/jquery.js", "src/**/script.js"])
-         .pipe(sourcemaps.init())
-         .pipe(babel())
-         // .pipe(rigger())
-         .pipe(concat("min.script.js"))
-         .pipe(uglify())
-        //  .pipe(rename({ suffix: ".min" }))
-         .pipe(sourcemaps.write("."))
-         .pipe(dest("dist/js"));
+function babelTranspiller () {
+  return src([path.src.js]).pipe(babel()).pipe(dest("src/out-js/"));
 };
 
-sass.compiler = require("node-sass");
-
-const sassExt = () => {
-    return src("src/sass/**/*.scss")
-      .pipe(sass().on("error", sass.logError))
-      .pipe(dest("src/css"));
-      // .pipe(browserSync.stream());
+function concatjs() {
+  return src(["src/out-js/script.js"])
+    .pipe(concat("min.main.js"))
+    .pipe(
+      minify({
+        simplify: true,
+        booleans: true,
+        builtIns: true,
+        consecutiveAdds: true,
+        deadcode: false,
+        evaluate: true,
+        flipComparisons: true,
+        guards: true,
+        infinity: true,
+        memberExpressions: true,
+        mergeVars: true,
+        numericLiterals: true,
+        propertyLiterals: true,
+        regexpConstructors: true,
+        removeConsole: false,
+        removeDebugger: false,
+        removeUndefined: true,
+        replace: true,
+        simplifyComparisons: true,
+        typeConstructors: true,
+        undefinedToVoid: true,
+        mangle: {
+          keepClassName: true,
+        },
+      })
+    )
+    .pipe(dest(path.build.js));
 };
- // src(["src/css/style.css", "src/css/fontface.css"])
-const cssminim = () => {
-  return src("src/**/*.css")
+
+function sassExt() {
+  return src(path.src.scss)
+    .pipe(sass({
+      outputStyle: "expanded"
+    }).on("error", sass.logError))
+    .pipe(dest(path.build.css))
+    .pipe(dest(path.src.css));
+};
+
+function cssminim() {
+  return src([path.src.css])
     .pipe(csso())
-    .pipe(concat("min.style.css"))
-    // .pipe(rename({ suffix: ".min" }))
-    .pipe(dest("dist/css"));
-}
-const copy = () => {
-  return (
-    src("src/**/*.html").pipe(dest("dist")) &&
-    src("src/fonts/*").pipe(dest("dist/fonts"))
-  )
+    .pipe(concat("min.styles.css"))
+    .pipe(dest(path.build.css));
 };
 
-const imageMin = () => {
+function copy() {
+  return (
+    src(path.src.html).pipe(dest("dist")) &&
+    src("src/fonts/*").pipe(dest("dist/fonts/"))
+  );
+};
+
+function imageMin() {
   return src("src/img/**/*.+(jpg|jpeg|png|svg)")
     .pipe(imagemin())
     .pipe(
@@ -93,22 +147,21 @@ const imageMin = () => {
           loops: 4,
           min: 70,
           max: 80,
-          quality: "high"
+          quality: "high",
         }),
         imagemin.gifsicle({ interlaced: true }),
         // imagemin.optipng({ optimizationLevel: 5 }),
-        imageminPngquant(['quality: 80']),
+        imageminPngquant(["quality: 80"]),
         imagemin.svgo({
-          plugins: [{ removeViewBox: true }, { cleanupIDs: false }]
-        })
+          plugins: [{ removeViewBox: true }, { cleanupIDs: false }],
+        }),
       ])
     )
-    .pipe(dest("dist/img"));
-}
+    .pipe(dest(path.build.img));
+};
 
-// exports.serv = serv;
 // exports.sassExt = sassExt;
-// exports.sasswatch = sasswatch;
 exports.babelTranspiller = babelTranspiller;
+exports.concatjs = concatjs;
 exports.build = series(cssminim, imageMin, copy);
-exports.dev = series(serv);
+exports.dev = parallel(serv);

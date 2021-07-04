@@ -1,15 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Document</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <h1>Start project avaken</h1>
+  <head>
+    <title>AVAKEN</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="background-header">
+        <header class="header content-body">
+          <div class="header__logo-container">
+            <a href="" class="header__link-logo"
+              ><img src="img/logo-white.svg" alt="Logo" class="header__logo"
+            /></a>
+          </div>
+          <ul class="header__menu">
+            <li class="header__menu-item">
+              <a href="#" class="header__menu-link">Home</a>
+            </li>
+            <li class="header__menu-item">
+              <a href="#about-us" class="header__menu-link">About</a>
+            </li>
+            <li class="header__menu-item">
+              <a href="#services" class="header__menu-link">Services</a>
+            </li>
+            <li class="header__menu-item">
+              <a href="#" class="header__menu-link">News</a>
+            </li>
+            <li class="header__menu-item">
+              <a href="#" class="header__menu-link">Contacts</a>
+            </li>
+          </ul>
+        </header>
+      </div>
+      <main class="main-block content-body">
+        <section class="home">
+          <!-- Slider main container -->
+          <div class="home__slider swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide">
+                <img src="img/slide_1.jpg" alt="Slide" />
+              </div>
+              <div class="swiper-slide">
+                <img src="img/slide_1.jpg" alt="Slide" />
+              </div>
+              <div class="swiper-slide">
+                <img src="img/slide_1.jpg" alt="Slide" />
+              </div>
+            </div>
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+          <div class="home__title-container">
+            <h1 class="home__title">Let’s build something great!</h1>
+            <a href="#" class="more-btn base-btn--modifier">learn more</a>
+          </div>
+        </section>
+        <section class="services">
+          <div class="services__wrapper-content">
+            <span class="services__section-name" id="services">services</span>
+            <h2 class="services__title">
+              Full-service digital capabilities from end to end.
+            </h2>
+          </div>
+          <div class="services__wrapper-content">
+            <a href="" class="more-btn">See all services</a>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <span class="card__name">Experiences</span>
+              <h3 class="card__title">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius.
+              </h3>
+              <p class="card__text">
+                Molestie facilisis sit nisl imperdiet nunc, enim sed a. Mi ac ut
+                arcu sollicitudin pellentesque.
+              </p>
+              <div class="card__btn-container">
+                <button class="card__btn-expand" type="button">+</button>
+              </div>
+            </div>
+            <div class="card">
+              <span class="card__name">Campaigns</span>
+              <h3 class="card__title">
+                Cras sit cras eget interdum. Suspendisse nibh mattis non fames
+                sit.
+              </h3>
+              <p class="card__text">
+                Erat in ut nunc, morbi dictumst et lectus ligula enim. Porta
+                porta nibh purus ac sit morbi et.
+              </p>
+              <div class="card__btn-container">
+                <button class="card__btn-expand" type="button">+</button>
+              </div>
+            </div>
+            <div class="card">
+              <span class="card__name">Studio</span>
+              <h3 class="card__title">
+                Mattis amet tincidunt sem morbi lacus blandit donec arcu dolor.
+              </h3>
+              <p class="card__text">
+                Bibendum molestie tellus maecenas eget. Risus aenean vestibulum
+                id porttitor mattis.
+              </p>
+              <div class="card__btn-container">
+                <button class="card__btn-expand" type="button">+</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="about-us">
+          <div class="wrapper-content">
+            <div class="about-us__header">
+              <span class="about-us__section-name" id="about-us">about us</span>
+              <h2 class="about-us__title">
+                Sit bibendum id proin felis auctor erat ac.
+              </h2>
+            </div>
+            <div class="about-us__text">
+              <p>
+                Aliquam egestas hac morbi eu. Eros, elit est diam mattis laoreet
+                faucibus lectus. Cursus sed tellus augue morbi pulvinar. Consequat
+                nisi, integer potenti consectetur. Sed leo massa morbi iaculis
+                viverra.
+              </p>
+              <a href="#" class="more-btn about-us--modifier">read more</a>
+            </div>
+          </div>
+          <div class="wrapper-content">
+            <div class="about-us__photo">
+              <img src="img/about_us.jpg" alt="About us" />
+            </div>
+            <div class="about-us__form-content">
+              <h3 class="about-us__form-title">Write Me.</h3>
+              <p class="about-us__description">
+                Sit et vulputate posuere id diam ac eget lacinia enim. Id congue
+                sapien libero sed. Aliquet amet eget placerat facilisis leo, sit
+                consequat.
+              </p>
+              <form class="about-us__form" action="">
+                  <div class="about-us__form-username">
+                    <label for="f-name">Full Name</label>
+                    <input type="text" name="name" id="f-name">
+                  </div>
+                  <div class="about-us__form-phone">
+                    <label for="phone">Phone</label>
+                    <input type="tel" name="phone" id="phone" />
+                  </div>
+                <div class="about-us__form-email">
+                  <label for="email">Email Address</label>
+                  <input type="email" name="email" id="email" />
+                </div>
+                <div class="about-us__form-message">
+                  <label for="msg">Message</label>
+                  <textarea
+                    name="message"
+                    id="msg"
+                  ></textarea>
+                </div>
+                <div>
+                  <button class="more-btn base-btn--modifier" type="submit" id="send-msg">
+                    send message
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
     <script src="js/jquery.min.js"></script>
+    <script src="js/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
-</body>
+  </body>
 </html>
